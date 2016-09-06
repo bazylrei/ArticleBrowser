@@ -7,16 +7,30 @@
 //
 
 import UIKit
+import CoreData
 
 class DataManager: NSObject {
     
-  func saveDownloadedArticles() {
+  func downloadedArticles(completion: (Void) -> Void) {
     let manager = DataDownloader()
     manager.getArticles { (dictionary) in
       let articles = dictionary.valueForKey("items") as! [[NSObject: AnyObject]]
       for article in articles {
         Article.createArticleObjectWithDictionary(article)
       }
+      completion()
+    }
+  }
+  
+  func getArticles() -> [Article] {
+    let coreData = CoreDataWrapper()
+    let context = coreData.managedObjectContext
+    let articleFetch = NSFetchRequest(entityName: "Article")
+    do {
+      let fetchedArticles = try context.executeFetchRequest(articleFetch) as! [Article]
+      return fetchedArticles
+    } catch {
+      fatalError("Failed to fetch employees: \(error)")
     }
   }
   

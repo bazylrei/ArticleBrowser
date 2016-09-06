@@ -14,8 +14,25 @@ class Article: NSManagedObject {
 
   class func createArticleObjectWithDictionary(dict: Dictionary<NSObject, AnyObject>) {
     let coreData = CoreDataWrapper()
-    let article = NSEntityDescription.insertNewObjectForEntityForName("Article",
+    let context = coreData.managedObjectContext
+    let articleFetch = NSFetchRequest(entityName: "Article")
+    articleFetch.predicate = NSPredicate(format: "id = %@", (dict["id"]! as? NSNumber)!)
+    let fetchedArticles: [Article]!
+    let article: Article!
+    
+    do {
+      fetchedArticles = try context.executeFetchRequest(articleFetch) as! [Article]
+    } catch {
+      fatalError("Failed to fetch employees: \(error)")
+    }
+    if fetchedArticles.count > 0 {
+      article = fetchedArticles[0]
+    } else {
+    article = NSEntityDescription.insertNewObjectForEntityForName("Article",
                                                                       inManagedObjectContext: coreData.managedObjectContext) as! Article
+    }
+    
+    
     article.id = dict["id"]! as? NSNumber
     article.title = dict["title"]! as? String
     article.subtitle = dict["subtitle"]! as? String
