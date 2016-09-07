@@ -19,6 +19,7 @@
 		21AA39641D7F5B8D00A02943 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21AA39631D7F5B8D00A02943 /* Assets.xcassets */; };
 		21AA39671D7F5B8D00A02943 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21AA39651D7F5B8D00A02943 /* LaunchScreen.storyboard */; };
 		21AA39721D7F5B8D00A02943 /* ArticleBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AA39711D7F5B8D00A02943 /* ArticleBrowserTests.swift */; };
+		21CC995D1D80C3B6009DE380 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC995C1D80C3B6009DE380 /* Constants.swift */; };
 		21CE5AED1D7F5C2D00D4333D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE5AEC1D7F5C2D00D4333D /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		21AA396D1D7F5B8D00A02943 /* ArticleBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArticleBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		21AA39711D7F5B8D00A02943 /* ArticleBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBrowserTests.swift; sourceTree = "<group>"; };
 		21AA39731D7F5B8D00A02943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21CC995C1D80C3B6009DE380 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		21CE5AEC1D7F5C2D00D4333D /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 		211A99891D7F6473004AA2AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				21CC995C1D80C3B6009DE380 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				21CE5AED1D7F5C2D00D4333D /* DataManager.swift in Sources */,
 				21AA395A1D7F5B8D00A02943 /* AppDelegate.swift in Sources */,
 				211A99921D7F66C8004AA2AF /* CoreDataWrapper.swift in Sources */,
+				21CC995D1D80C3B6009DE380 /* Constants.swift in Sources */,
 				2178D9B61D7F8D8E00D2C1DE /* DetailVC.swift in Sources */,
 				211A99901D7F6637004AA2AF /* Article.swift in Sources */,
 				211A998C1D7F65E3004AA2AF /* Model.xcdatamodeld in Sources */,

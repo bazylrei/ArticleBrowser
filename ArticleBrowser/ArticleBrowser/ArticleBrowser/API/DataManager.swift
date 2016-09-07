@@ -10,9 +10,11 @@ import UIKit
 import CoreData
 
 class DataManager: NSObject {
-    
+  
+  let manager = DataDownloader()
+  
   func downloadedArticles(completion: (Void) -> Void) {
-    let manager = DataDownloader()
+    
     manager.getArticles { (dictionary) in
       let articles = dictionary.valueForKey("items") as! [[NSObject: AnyObject]]
       for article in articles {
@@ -22,8 +24,16 @@ class DataManager: NSObject {
     }
   }
   
+  func downloadArticleDetails(articleID: NSNumber, completion: (Void) -> Void) {
+    manager.getArticleDetails(articleID) { (dictionary) in
+      let article = dictionary.valueForKey("item") as! [NSObject: AnyObject]
+      Article.createArticleObjectWithDictionary(article)
+    }
+    
+  }
+  
   func getArticles() -> [Article] {
-    let coreData = CoreDataWrapper()
+    let coreData = CoreDataWrapper.sharedWrapper
     let context = coreData.managedObjectContext
     let articleFetch = NSFetchRequest(entityName: "Article")
     do {

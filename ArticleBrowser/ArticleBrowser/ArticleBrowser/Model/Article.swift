@@ -13,7 +13,7 @@ import CoreData
 class Article: NSManagedObject {
 
   class func createArticleObjectWithDictionary(dict: Dictionary<NSObject, AnyObject>) {
-    let coreData = CoreDataWrapper()
+    let coreData = CoreDataWrapper.sharedWrapper
     let context = coreData.managedObjectContext
     let articleFetch = NSFetchRequest(entityName: "Article")
     articleFetch.predicate = NSPredicate(format: "id = %@", (dict["id"]! as? NSNumber)!)
@@ -29,14 +29,15 @@ class Article: NSManagedObject {
       article = fetchedArticles[0]
     } else {
     article = NSEntityDescription.insertNewObjectForEntityForName("Article",
-                                                                      inManagedObjectContext: coreData.managedObjectContext) as! Article
+                                                                      inManagedObjectContext: context) as! Article
     }
     
-    
-    article.id = dict["id"]! as? NSNumber
-    article.title = dict["title"]! as? String
-    article.subtitle = dict["subtitle"]! as? String
-    article.date = dict["date"]! as? String
+  
+    article.id = dict["id"] as? NSNumber
+    article.title = dict["title"] as? String
+    article.subtitle = dict["subtitle"] as? String
+    article.date = dict["date"] as? String
+    article.body = dict["body"] as? String
     coreData.saveContext()
   }
 
