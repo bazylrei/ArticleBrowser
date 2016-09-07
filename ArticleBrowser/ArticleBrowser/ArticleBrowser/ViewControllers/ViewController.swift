@@ -11,16 +11,29 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
   @IBOutlet weak var tableView: UITableView!
-  var articles: [Article]?
+  var articles: [Article]? {
+    didSet(oldValue) {
+      
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     let manager = DataManager()
     manager.downloadedArticles() { [weak self] in
       dispatch_async(dispatch_get_main_queue(), { 
-        self?.articles = manager.getArticles()
+        self?.articles = manager.getArticles().sort{return $0.title < $1.title}
         self?.tableView.reloadData()
       })
+    }
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "detailSegue" {
+      let detailVC = segue.destinationViewController as! DetailVC
+      if let sender = sender {
+        detailVC.article = sender as? Article
+      }
     }
   }
 
@@ -37,16 +50,31 @@ extension ViewController {
     guard let articles = articles else {
       return 0
     }
-    print(articles.count)
     return articles.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("ArticleCell", forIndexPath: indexPath)
-    let article = articles![indexPath.row]
-    print(article)
+    guard let articles = articles else {
+      return cell
+    }
+    let article = articles[indexPath.row]
+    
     cell.textLabel?.text = article.title
     cell.detailTextLabel?.text = article.subtitle
     return cell
+  }
+}
+
+//MARK: UITableViewDelegate
+
+extension ViewController {
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    guard let articles = articles else {
+      return
+    }
+    let article = articles[indexPath.row]
+    self.performSegueWithIdentifier("detailSegue", sender: article)
   }
 }

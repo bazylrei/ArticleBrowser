@@ -37,7 +37,6 @@ class Article: NSManagedObject {
     article.title = dict["title"]! as? String
     article.subtitle = dict["subtitle"]! as? String
     article.date = dict["date"]! as? String
-    print(article)
     coreData.saveContext()
   }
 
